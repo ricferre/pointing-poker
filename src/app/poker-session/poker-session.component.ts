@@ -112,7 +112,7 @@ export class PokerSessionComponent implements OnInit, AfterViewChecked {
   }
 
   public doShowValues(): void {
-    this.showValues = true;
+    this.showValues =  ! this._showValues;
   }
 
   public clearVotes(): void {
