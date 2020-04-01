@@ -59,8 +59,12 @@ export class PokerSessionComponent implements OnInit, AfterViewChecked {
       value: 13,
     },
     {
-      label: '21',
-      value: 21,
+      label: '20',
+      value: 20,
+    },
+    {
+      label: '40',
+      value: 40,
     },
     {
       label: '0',
