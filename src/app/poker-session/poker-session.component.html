@@ -1,6 +1,6 @@
 <div>
 
-  <div class="top-card">
+  <div class="mid-cards">
   <novo-card>
     <div class="action-buttons">
       <button theme="primary" color="negative" icon="times" (click)="clearVotes()">Clear Votes</button>
@@ -21,10 +21,6 @@
     </div>
 
   </novo-card>
-  </div>
-
-
-  <div class="mid-cards">
   <novo-card>
     <div class="point-list">
       <div class="user-info">
@@ -43,7 +39,6 @@
           <span *ngIf="showValues">{{pointValues[userName]}}</span><i *ngIf="!showValues" class="bhi-circle" [ngStyle]="{'color': pointValues[userName] ? '#8CC152' : '#DA4453'}"></i>
         </div>
       </div>
-
     </div>
   </novo-card>
   </div>
