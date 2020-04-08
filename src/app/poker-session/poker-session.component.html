@@ -2,11 +2,6 @@
 
   <div class="top-card">
   <novo-card>
-    <novo-form [form]="form" *ngIf="form">
-      <div class="novo-form-row">
-        <novo-control [form]="form" [control]="nameControl"></novo-control>
-      </div>
-    </novo-form>
     <div class="action-buttons">
       <button theme="primary" color="negative" icon="times" (click)="clearVotes()">Clear Votes</button>
       <button theme="primary" icon="search" (click)="doShowValues()">{{showValues ? 'Hide Votes' : 'Show Votes'}}</button>
