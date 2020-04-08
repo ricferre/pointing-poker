@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
-import { NovoFormGroup, TextBoxControl, FormUtils, FieldInteractionApi } from 'novo-elements';
+import {  FormUtils, FieldInteractionApi } from 'novo-elements';
 export class Message {
   constructor(
     public sender: string,
     public content: string | number,
     public session: string,
-    public type: 'chat' | 'points' | 'action' |'disconnect' | 'description',
+    public type: 'points' | 'action' |'disconnect',
   ) { }
 }
 @Component({
@@ -21,12 +21,6 @@ export class PokerSessionComponent implements OnInit, AfterViewChecked {
   public _webSocket: WebSocketSubject<any>; // tslint:disable-line
   public pointValues: any = {};
   public selectedPointValue: any;
-  public lastDescription = '';
-  public chatLog: Message[] = [];
-  public form: NovoFormGroup;
-  public chatForm: NovoFormGroup;
-  public nameControl: TextBoxControl;
-  public messageControl: TextBoxControl;
   public _showValues: boolean = false; // tslint:disable-line
   public _spectator: boolean = false; // tslint:disable-line
   public options: any[] = [
@@ -81,14 +75,11 @@ export class PokerSessionComponent implements OnInit, AfterViewChecked {
     this.name = sessionStorage.getItem('POKER_NAME');
     if (this.name) {
       this.webSocket.subscribe(this.handleSocketUpdates.bind(this));
-      this.createForm();
-      this.createChatForm();
     }
   }
 
   public ngAfterViewChecked() {
     this.scrollToBottom();
-    document.querySelector('.chat .novo-form').setAttribute('autocomplete', 'off');
   }
 
   get webSocket(): WebSocketSubject<any> {
@@ -145,12 +136,6 @@ export class PokerSessionComponent implements OnInit, AfterViewChecked {
             this.selectedPointValue = 0;
           }
           break;
-        case 'chat':
-          this.chatLog.push(res);
-          break;
-        case 'description':
-          this.updateDescription(res.content);
-          break;
         default:
           break;
       }
@@ -162,39 +147,6 @@ export class PokerSessionComponent implements OnInit, AfterViewChecked {
     this.webSocket.next(message);
   }
 
-  public sendChat(): void {
-    this.send(this.chatForm.value.message, 'chat');
-    this.scrollToBottom();
-    this.chatForm.setValue({message: ''});
-  }
-
-  public createChatForm() {
-    this.messageControl = new TextBoxControl({
-      key: 'message',
-      required: false,
-      placeholder: 'Send Message',
-    });
-    this.chatForm = this.formUtils.toFormGroup([this.messageControl]);
-  }
-
-  public createForm() {
-    this.nameControl = new TextBoxControl({
-      key: 'storyDescription',
-      required: false,
-      placeholder: 'Story Description',
-      interactions: [{event: 'change', script: (API: FieldInteractionApi) => {
-        if (API.getActiveValue() !== this.lastDescription) {
-          this.send(API.getActiveValue(), 'description');
-        }
-      }}]
-    });
-    this.form = this.formUtils.toFormGroup([this.nameControl]);
-  }
-
-  private updateDescription(description: any): void {
-    this.lastDescription = description;
-    this.form.setValue({storyDescription: description});
-  }
 
   scrollToBottom(): void {
     try {
