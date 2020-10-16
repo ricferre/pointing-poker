@@ -25,6 +25,22 @@ export class PokerSessionComponent implements OnInit, AfterViewChecked {
   public _spectator: boolean = false; // tslint:disable-line
   public options: any[] = [
     {
+      label: 'S',
+      value: 'S',
+    },
+    {
+      label: 'M',
+      value: 'M',
+    },
+    {
+      label: 'L',
+      value: 'L',
+    },
+    {
+      label: 'XL',
+      value: 'XL',
+    },
+    {
       label: '.5',
       value: .5,
     },
