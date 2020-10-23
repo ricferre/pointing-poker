@@ -155,6 +155,7 @@ export class PokerSessionComponent implements OnInit, AfterViewChecked {
              this.pointValues[res.sender] = res.content;
              if (res.sender === this.name && res.content === undefined) {
                this.selectedPointValue = 0;
+             }
            }
           break;
         default:
